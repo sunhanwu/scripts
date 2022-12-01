@@ -20,7 +20,7 @@ else
 fi
 
 echo "[ INFO ] 检测是否配置免密登录"
-ssh -o NumberOfPasswordPrompts=0 ${username}@${host} "${password}" &>/dev/null
+ssh -o NumberOfPasswordPrompts=0 ${username}@${host} "pwd" &>/dev/null
 if [[ $? -ne 0 ]]; then
 	echo "[ WARN ] 未配置免密登录，正在配置"
 	ssh-copy-id ${username}@${host}

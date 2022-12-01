@@ -39,12 +39,12 @@ fi
 echo "[ INFO ] 检测进程是否存在"
 tmp=1000
 monitorPort=`expr $remotePort - $tmp`
-result=`ps -aux | grep -i "autossh -M $monitorPort -fCNR $remotePort:localhost:$port $username@$host" | grep -v "grep" | wc -l`
+result=`ps -aux | grep -i "autossh -M $monitorPort -CNR $remotePort:localhost:$port $username@$host" | grep -v "grep" | wc -l`
 if [ $result -ge 1 ]; then
 	echo -e "[ INFO ] 进程已存在，是否重启该任务(Y/N): \c"
 	read choice
 	if [ "$choice" = "Y" ]; then
-		pid=`ps -aux | grep -i "autossh -M $monitorPort -fCNR $remotePort:localhost:$port $username@$host" | grep -v "grep" | awk '{print $2}'`
+		pid=`ps -aux | grep -i "autossh -M $monitorPort -CNR $remotePort:localhost:$port $username@$host" | grep -v "grep" | awk '{print $2}'`
 		kill -9 ${pid}
 		autossh -M $monitorPort -fCNR $remotePort:localhost:$port $username@$host
 		echo "[ INFO ] 已重启该任务"
